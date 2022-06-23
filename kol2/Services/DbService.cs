@@ -17,21 +17,32 @@ namespace kol2.Services
             _context = context;
         }
 
+        public Task AddMemberToTeamAsync(int memberID, int teamID)
+        {
+
+            throw new NotImplementedException();
+        }
+
         public async Task<GetTeamDTO> GetTeamAsync(int id)
         {
             var team = await _context.Teams.Where(m => m.TeamID == id).SingleOrDefaultAsync();
 
             if (team == null) throw new KeyNotFoundException("Team does not exist");
 
-            GetTeamDTO resp = new GetTeamDTO
+            GetTeamDTO result = new GetTeamDTO
             {
                 TeamName = team.TeamName,
                 TeamDescription = team.TeamDescription,
                 OrganizationName = await _context.Organizatons.Where(o => o.OrganizationID == team.OrganizationID).Select(o => o.OrganizationName).SingleOrDefaultAsync(),
-                //Members = await _context.Mem
-            }
+                Members = await _context.Memberships.Where(ms => ms.TeamID == team.TeamID)
+                                    .Join(_context.Members, ms => ms.MemberID, m => m.MemberID, (ms, m) => new GetMemberDTO
+                                    {
+                                        MemberName = m.MemberName,
+                                        MemberSurname = m.MemberSurname
+                                    }).ToListAsync()
+            };
 
-            throw new NotImplementedException();
+            return result;
         }
     }
 }

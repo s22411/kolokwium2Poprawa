@@ -7,6 +7,6 @@ namespace kol2.Models.DTOs
         public string TeamName { get; set; }
         public string TeamDescription { get; set; }
         public string OrganizationName { get; set; }
-        public IEnumerable<Member> Members { get; set; }
+        public IEnumerable<GetMemberDTO> Members { get; set; }
     }
 }

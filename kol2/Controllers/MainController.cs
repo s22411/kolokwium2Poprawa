@@ -36,8 +36,23 @@ namespace kol2.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        [Route("addmember")]
+        public async Task<IActionResult> AddMemberToTeam([FromQuery] int memberID, [FromQuery] int teamID)
+        {
+            try
+            {
+                await _service.AddMemberToTeamAsync(memberID, teamID);
+                return Ok("Member assigned");
+            }
+            catch(Exception)
+            {
+                throw new NotImplementedException();
+            }
             
-           
+            throw new NotImplementedException();
         }
     }
 }

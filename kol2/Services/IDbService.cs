@@ -9,5 +9,6 @@ namespace kol2.Services
     public interface IDbService
     {
         public Task<GetTeamDTO> GetTeamAsync(int id);
+        public Task AddMemberToTeamAsync(int memberID, int teamID);
     }
 }
