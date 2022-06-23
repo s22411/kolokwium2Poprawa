@@ -7,7 +7,7 @@ namespace kol2.Models
 {
     public class Organization
     {
-        new public Organization()
+        public Organization()
         {
             Members = new HashSet<Member>();
             Teams = new HashSet<Team>();
@@ -16,7 +16,7 @@ namespace kol2.Models
         public int OrganizationID { get; set; }
         public string OrganizationName { get; set; }
         public string OrganizationDomain { get; set; }
-        public virtual IEnumerable<Memeber> Members { get; set; }
+        public virtual IEnumerable<Member> Members { get; set; }
         public virtual IEnumerable<Team> Teams { get; set; }
     }
 }

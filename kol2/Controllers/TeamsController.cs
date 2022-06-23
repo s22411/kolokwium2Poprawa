@@ -1,13 +1,17 @@
+using kol2.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace kol2.Controllers
 {
     public class TeamsController : ControllerBase
     {
-        public readonly 
+        public readonly IDbService _service;
+
+        public TeamsController(IDbService service)
+        {
+            _service = service;
+        }
+
+
     }
 }
