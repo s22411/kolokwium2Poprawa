@@ -36,8 +36,6 @@ namespace kol2.Services
                 TeamID = teamID,
                 MembershipDate = DateTime.Now
             });
-
-            throw new NotImplementedException();
         }
 
         public async Task<GetTeamDTO> GetTeamAsync(int id)
