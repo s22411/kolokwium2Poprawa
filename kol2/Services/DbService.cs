@@ -17,8 +17,25 @@ namespace kol2.Services
             _context = context;
         }
 
-        public Task AddMemberToTeamAsync(int memberID, int teamID)
+        public async Task AddMemberToTeamAsync(int memberID, int teamID)
         {
+            var member = await _context.Members.Where(m => m.MemberID == memberID).SingleOrDefaultAsync();
+            if (member == null) throw new KeyNotFoundException("No such member");
+
+            var team = await _context.Teams.Where(m => m.TeamID == teamID).SingleOrDefaultAsync();
+            if (member == null) throw new KeyNotFoundException("No such team");
+
+            if (team.OrganizationID != member.OrganizationID) throw new Exception("Member and Team in different organizations");
+
+            var membership = await _context.Memberships.Where(ms => ms.MemberID == memberID && ms.TeamID == teamID).FirstOrDefaultAsync();
+            if (membership != null) return;
+
+            await _context.Memberships.AddAsync(new Membership
+            {
+                MemberID = memberID,
+                TeamID = teamID,
+                MembershipDate = DateTime.Now
+            });
 
             throw new NotImplementedException();
         }

@@ -47,9 +47,13 @@ namespace kol2.Controllers
                 await _service.AddMemberToTeamAsync(memberID, teamID);
                 return Ok("Member assigned");
             }
-            catch(Exception)
+            catch (KeyNotFoundException e)
             {
-                throw new NotImplementedException();
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
             
             throw new NotImplementedException();
